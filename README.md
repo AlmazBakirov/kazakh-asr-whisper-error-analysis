@@ -11,24 +11,35 @@ Evaluate a pretrained multilingual ASR model on Kazakh speech and analyze where 
 - **Model:** `openai/whisper-small`
 - **Dataset:** Google FLEURS, Kazakh configuration `kk_kz`
 - **Split:** `test`
-- **Audio:** at least **10 minutes** of Kazakh speech
+- **Evaluated audio:** **10.13 minutes**, 37 utterances
 - **Training:** none; pretrained Whisper is evaluated as-is
 - **Metrics:** raw WER, normalized WER, CER
 - **Error analysis:** substitutions, deletions, insertions, Kazakh-specific character confusions, morphology-like candidates, worst utterances
-- **Environment:** Google Colab GPU
+- **Environment:** Google Colab GPU (NVIDIA Tesla T4)
 
-The notebook collects complete utterances until cumulative audio duration is at least 600 seconds, so the final duration may be slightly above 10:00.
+## Final results
+
+- Raw WER: **80.25%**
+- Basic-normalized WER: **69.57%**
+- Basic-normalized CER: **21.30%**
+- Substitutions: **368**
+- Deletions: **60**
+- Insertions: **27**
+
+See `RESULTS.md` for the concise result summary.
 
 ## How to run
 
-1. Open `kazakh_asr_whisper_10MIN_FINAL.ipynb` in Google Colab.
+1. Open `kazakh_asr_whisper_10MIN.ipynb` in Google Colab.
 2. Select **Runtime → Change runtime type → GPU**.
 3. Run **Runtime → Run all**.
 4. The notebook saves outputs into `results/` and creates `kazakh_asr_results.zip`.
 
+The notebook collects complete utterances until cumulative audio duration reaches at least 600 seconds, so the exact duration can be slightly above 10:00.
+
 ## Generated outputs
 
-After a successful run the notebook produces files including:
+The notebook produces files including:
 
 - `predictions.csv` — reference and Whisper transcription for each utterance
 - `errors.csv` — utterances containing recognition errors
@@ -47,7 +58,7 @@ The experiment intentionally uses one model and one corpus subset. The purpose i
 
 ## Limitations
 
-The final WER/CER values apply only to the evaluated FLEURS subset. They should not be generalized to all Kazakh speech, especially spontaneous dialogue, noisy recordings, regional accents, call-center audio, or Kazakh–Russian code-switching.
+The reported WER/CER values apply only to this evaluated FLEURS subset. They should not be generalized to all Kazakh speech, especially spontaneous dialogue, noisy recordings, regional accents, call-center audio, or Kazakh–Russian code-switching.
 
 ## AI assistant disclosure
 
